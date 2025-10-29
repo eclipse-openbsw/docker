@@ -1,0 +1,18 @@
+name: check
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+jobs:
+  docker-build-check-development:
+    name: docker-build-check-development
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: build and push image
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          tags: ghcr.io/${{ github.repository }}/development:${{ github.ref_name }}
