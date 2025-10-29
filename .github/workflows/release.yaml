@@ -1,0 +1,26 @@
+name: release
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+jobs:
+  docker-build-release-development:
+    name: docker-build-release-development
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: login to container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: build and push image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}/development:${{ github.ref_name }}
