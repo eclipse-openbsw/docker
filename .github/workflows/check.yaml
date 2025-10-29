@@ -11,8 +11,8 @@ jobs:
     permissions:
       contents: read
     steps:
-      - name: build and push image
+      - name: build image
         uses: docker/build-push-action@v6
         with:
           push: false
-          tags: ghcr.io/${{ github.repository }}/development:${{ github.ref_name }}
+          tags: development:local
