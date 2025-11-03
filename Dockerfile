@@ -27,23 +27,21 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3
     && ./cmake-3.28.3-linux-x86_64.sh --skip-license --prefix=/usr/local \
     && rm cmake-3.28.3-linux-x86_64.sh
 
-RUN wget https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz \
-    && tar xf arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz \
-    && mv arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi /usr/bin/gcc-arm-none-eabi \
-    && rm arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz
-ENV PATH="/usr/bin/gcc-arm-none-eabi/bin:${PATH}"
-
 RUN wget https://github.com/llvm/llvm-project/releases/download/llvmorg-17.0.2/clang+llvm-17.0.2-x86_64-linux-gnu-ubuntu-22.04.tar.xz \
     && tar -xf clang+llvm-17.0.2-x86_64-linux-gnu-ubuntu-22.04.tar.xz \
     && mv clang+llvm-17.0.2-x86_64-linux-gnu-ubuntu-22.04 /usr/bin/llvm \
     && rm clang+llvm-17.0.2-x86_64-linux-gnu-ubuntu-22.04.tar.xz
 ENV PATH="/usr/bin/llvm/bin:${PATH}"
 
+RUN wget https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz \
+    && tar xf arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz \
+    && mv arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi /usr/bin/gcc-arm-none-eabi \
+    && rm arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz
+
 RUN wget https://github.com/ARM-software/LLVM-embedded-toolchain-for-Arm/releases/download/release-19.1.1/LLVM-ET-Arm-19.1.1-Linux-x86_64.tar.xz \
     && tar -xf LLVM-ET-Arm-19.1.1-Linux-x86_64.tar.xz \
     && mv LLVM-ET-Arm-19.1.1-Linux-x86_64 /usr/bin/llvm-arm \
     && rm LLVM-ET-Arm-19.1.1-Linux-x86_64.tar.xz
-ENV PATH="/usr/bin/llvm-arm/bin:${PATH}"
 
 RUN curl -L https://github.com/numtide/treefmt/releases/download/v2.1.0/treefmt_2.1.0_linux_amd64.tar.gz -o treefmt.tar.gz \
     && tar -xvzf treefmt.tar.gz \
